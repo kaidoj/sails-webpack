@@ -65,7 +65,7 @@ module.exports.webpack = {
       loaders: [
         // requires "npm install --save-dev babel-loader"
         { test: /\.js$/, loaders: ['babel-loader?stage=0'] },
-        { test: /\.css$/, loader: 'style!css' }
+        { test: /\.css$/, loader: 'style-loader!css-loader' }
       ]
     }
   },

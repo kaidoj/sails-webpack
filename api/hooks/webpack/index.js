@@ -1,6 +1,5 @@
-import Marlinspike from 'marlinspike'
-import webpack from 'webpack'
-import _ from 'lodash'
+const Marlinspike = require('marlinspike');
+const webpack = require('webpack');
 
 class Webpack extends Marlinspike {
   constructor (sails) {
@@ -21,7 +20,7 @@ class Webpack extends Marlinspike {
     next()
 
     sails.after('lifted', () => {
-      this.compiler = webpack(_.extend({ }, this.sails.config.webpack.options), (err, stats) => {
+      this.compiler = webpack(Object.assign({ }, this.sails.config.webpack.options), (err, stats) => {
         if (err) throw err;
 
         sails.log.info('sails-webpack: compiler loaded.')
@@ -29,7 +28,7 @@ class Webpack extends Marlinspike {
 
         if (process.env.NODE_ENV == 'development') {
           sails.log.info('sails-webpack: watching...')
-          this.compiler.watch(_.extend({ }, this.sails.config.webpack.watchOptions), this.afterBuild)
+          this.compiler.watch(Object.assign({ }, this.sails.config.webpack.watchOptions), this.afterBuild)
         }
         else {
           sails.log.info('sails-webpack: running...')

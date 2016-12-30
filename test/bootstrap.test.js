@@ -7,6 +7,7 @@ before(function(done) {
   this.timeout(30000);
 
   var config = {
+    port: 12345,
     appPath: path.resolve(__dirname, '..'),
     hooks: {
       grunt: false
