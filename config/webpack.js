@@ -1,5 +1,9 @@
+const path = require('path');
+
 module.exports.webpack = {
   options: {
-    entry: {}
+    entry: {
+      app: path.resolve(__dirname, '../test/main.js')
+    }
   }
 }
