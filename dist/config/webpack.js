@@ -1,5 +1,9 @@
+var path = require('path');
+
 module.exports.webpack = {
   options: {
-    entry: {}
+    entry: {
+      app: './index.js'
+    }
   }
 };
