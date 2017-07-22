@@ -64,11 +64,17 @@ module.exports.webpack = {
     module: {
       loaders: [
         // requires "npm install --save-dev babel-loader"
-        { test: /\.js$/, loaders: ['babel-loader?stage=0'] },
-        { test: /\.css$/, loader: 'style-loader!css-loader' }
+        { test: /\.js$/, loader: 'babel-loader' },
+        { test: /\.css$/, loaders: ['style-loader', 'css-loader'] }
       ]
     }
   },
+
+  // Suppress errors/warnings from the sails-webpack hook.
+  // Since webpack displays its own errors, these settings are helpful to
+  // reduce console clutter.
+  suppressErrors: true,
+  suppressWarnings: true,
 
   // docs: https://webpack.github.io/docs/node.js-api.html#compiler
   watchOptions: {

@@ -45,10 +45,14 @@ var Webpack = function (_Marlinspike) {
 
           if (process.env.NODE_ENV == 'development') {
             sails.log.info('sails-webpack: watching...');
-            _this2.compiler.watch(Object.assign({}, _this2.sails.config.webpack.watchOptions), _this2.afterBuild);
+            _this2.compiler.watch(Object.assign({}, _this2.sails.config.webpack.watchOptions), function (err, rawStats) {
+              return _this2.afterBuild(err, rawStats);
+            });
           } else {
             sails.log.info('sails-webpack: running...');
-            _this2.compiler.run(_this2.afterBuild);
+            _this2.compiler.run(function (err, rawStats) {
+              return _this2.afterBuild(err, rawStats);
+            });
           }
         });
       });
@@ -65,10 +69,15 @@ var Webpack = function (_Marlinspike) {
         chunks: false
       }));
 
-      if (stats.errors.length > 0) {
+      var _sails$config$webpack = this.sails.config.webpack,
+          suppressErrors = _sails$config$webpack.suppressErrors,
+          suppressWarnings = _sails$config$webpack.suppressWarnings;
+
+
+      if (!suppressErrors && stats.errors.length > 0) {
         sails.log.error('sails-webpack:', stats.errors);
       }
-      if (stats.warnings.length > 0) {
+      if (!suppressWarnings && stats.warnings.length > 0) {
         sails.log.warn('sails-webpack:', stats.warnings);
       }
     }

@@ -28,11 +28,11 @@ class Webpack extends Marlinspike {
 
         if (process.env.NODE_ENV == 'development') {
           sails.log.info('sails-webpack: watching...')
-          this.compiler.watch(Object.assign({ }, this.sails.config.webpack.watchOptions), this.afterBuild)
+          this.compiler.watch(Object.assign({ }, this.sails.config.webpack.watchOptions), (err, rawStats) => this.afterBuild(err, rawStats))
         }
         else {
           sails.log.info('sails-webpack: running...')
-          this.compiler.run(this.afterBuild)
+          this.compiler.run((err, rawStats) => this.afterBuild(err, rawStats))
         }
       })
     })
@@ -41,17 +41,19 @@ class Webpack extends Marlinspike {
   afterBuild (err, rawStats) {
     if (err) return sails.log.error('sails-webpack: FATAL ERROR', err)
 
-    let stats = rawStats.toJson()
+    const stats = rawStats.toJson()
 
     sails.log.debug('sails-webpack: Build Info\n' + rawStats.toString({
       colors: true,
       chunks: false
     }))
 
-    if (stats.errors.length > 0) {
+    const { suppressErrors, suppressWarnings } = this.sails.config.webpack;
+
+    if (!suppressErrors && stats.errors.length > 0) {
       sails.log.error('sails-webpack:', stats.errors)
     }
-    if (stats.warnings.length > 0) {
+    if (!suppressWarnings && stats.warnings.length > 0) {
       sails.log.warn('sails-webpack:', stats.warnings)
     }
   }
