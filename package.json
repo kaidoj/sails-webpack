@@ -1,6 +1,6 @@
 {
   "name": "sails-webpack",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Webpack asset pipeline hook for Sails",
   "license": "MIT",
   "keywords": [

@@ -66,7 +66,8 @@ var Webpack = function (_Marlinspike) {
 
       sails.log.debug('sails-webpack: Build Info\n' + rawStats.toString({
         colors: true,
-        chunks: false
+        chunks: false,
+        modules: false
       }));
 
       var _sails$config$webpack = this.sails.config.webpack,

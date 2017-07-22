@@ -45,7 +45,8 @@ class Webpack extends Marlinspike {
 
     sails.log.debug('sails-webpack: Build Info\n' + rawStats.toString({
       colors: true,
-      chunks: false
+      chunks: false,
+      modules: false
     }))
 
     const { suppressErrors, suppressWarnings } = this.sails.config.webpack;
