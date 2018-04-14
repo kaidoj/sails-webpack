@@ -44,7 +44,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "mocha": "^3.4.2",
-    "sails": "^0.12.13",
+    "sails": "^1.0",
     "webpack": "^3.3.0"
   },
   "peerDependencies": {
